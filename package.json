@@ -1,0 +1,25 @@
+{
+  "name": "caroshark",
+  "version": "1.0.0",
+  "description": "Javascript framework for competitive programming.",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "ex": "tsx watch index.ts example",
+    "dev": "tsx watch index.ts dev",
+    "sol": "tsx index.ts solution & tsx ./lib/save-solution.ts",
+    "test": "tsx --test"
+  },
+  "author": "Zsolt Domotor",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "git-diff": "^2.0.6",
+    "in-to-js": "^0.0.2",
+    "pathfinding": "^0.4.18"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "tsx": "^4.20.6"
+  }
+}

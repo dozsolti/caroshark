@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./lib",
+        "noImplicitAny": false
+    },
+    "include": [
+        "index.ts",
+        "lib/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "solutions",
+        "**/*.spec.ts"
+    ]
+}

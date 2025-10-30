@@ -1,0 +1,27 @@
+{
+    "nodejs-testing.include": [
+        "./",
+        "*.test.ts"
+    ],
+    "nodejs-testing.extensions": [
+        {
+            "extensions": [
+                "mts",
+                "cts",
+                "ts"
+            ],
+            "parameters": [
+                "--import",
+                "tsx"
+            ]
+        },
+        {
+            "extensions": [
+                "mjs",
+                "cjs",
+                "js"
+            ],
+            "parameters": []
+        }
+    ],
+}
