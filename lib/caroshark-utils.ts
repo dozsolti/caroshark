@@ -54,14 +54,7 @@ export function findPath(
   startPos: { x: number; y: number },
   endPos: { x: number; y: number }
 ) {
-  const grid = new PF.Grid(
-    m.map((row) =>
-      row.map((cel) => {
-        if ("WG".includes(cel)) return 1;
-        return 0;
-      })
-    )
-  );
+  const grid = new PF.Grid(m);
 
   const finder = new PF.AStarFinder({
     allowDiagonal: false,
@@ -76,10 +69,7 @@ export function findPath(
     grid
   );
 
-  return path.map((p) => ({
-    x: p[0],
-    y: p[1],
-  }));
+  return path;
 }
 
 /**

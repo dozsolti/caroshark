@@ -69,8 +69,8 @@ runCaroshark({
         const curr = newPath[i];
         const next = newPath[i + 1];
 
-        const deltaX = next[0] - curr[0]+1;
-        const deltaY = next[1] - curr[1]+1;
+        const deltaX = next[0] - curr[0];
+        const deltaY = next[1] - curr[1];
 
         if (deltaX !== 0) {
           let sq = calcSeq(deltaX);
