@@ -148,7 +148,7 @@ export async function runCaroshark(config: {
     }
 
     printFunc(output);
-    // detectDiff(exampleOut, output);
+    detectDiff(exampleOut, output);
   }
 }
 

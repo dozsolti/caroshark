@@ -1,8 +1,10 @@
 import { InToJSParser } from 'in-to-js';
-import PF from 'pathfinding';
 
 import { runCaroshark } from './lib/caroshark';
-import { findPath } from './lib/caroshark-utils';
+import {
+  findPath,
+  printMatrixWithPath,
+} from './lib/caroshark-utils';
 
 export const parser = (s: string[]) =>
   InToJSParser.create(s)
@@ -50,7 +52,7 @@ runCaroshark({
         { y: offset + posY, x: offset + posX }
       );
 
-      /*  m[offset][offset] = 3; // start
+      m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
 
       result.push(
@@ -65,11 +67,11 @@ runCaroshark({
             return "*";
           }
         )
-      ); */
+      );
       // return 0;
 
-      let newPath = PF.Util.compressPath(path);
-      console.log(newPath);
+      /*     let newPath = PF.Util.compressPath(path);
+      console.log(newPath)
 
       for (let i = 0; i < newPath.length - 1; i++) {
         const curr = newPath[i];
@@ -104,7 +106,7 @@ runCaroshark({
 
       result.push(rY.trim());
       result.push(rX.trim());
-      result.push("");
+      result.push("");  */
     }
     return result.join("\r\n");
     /* let result: any = [];

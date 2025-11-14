@@ -33,6 +33,7 @@ export function printMatrixWithPath(
   path: Position[],
   mapFn?: (value: any, row: number, col: number) => string
 ) {
+  let r= ""
   if (!mapFn) mapFn = (v) => v + "";
   for (let i = 0; i < m.length; i++) {
     let s = "";
@@ -44,9 +45,11 @@ export function printMatrixWithPath(
         s += mapFn(m[i][j], i, j);
       }
     }
-    console.log(s);
+    // console.log(s);
+    r += s + "\n";
   }
-  console.log("");
+  // console.log("");
+  return r;
 }
 
 export function findPath(

@@ -16,8 +16,9 @@ runCaroshark({
   main: async (data) => {
     let result: any = [];
 
-    let offset = 100;
-    let m;
+    let offsetX = 50;
+    let offsetY = 50;
+
     for (let line of data.lines) {
       let rX = "",
         rY = "";
@@ -34,42 +35,35 @@ runCaroshark({
       //   `Position: (${posX}, ${posY}), Time Limit: ${timeLimit} Asteroid Position: (${posAsteriodX}, ${posAsteriodY})`
       // );
 
-      m = new Array(offset * 2 + 1)
+      let m = new Array(offsetX * 2 + 1)
         .fill(0)
-        .map(() => new Array(offset * 2 + 1).fill(0));
+        .map(() => new Array(offsetY * 2 + 1).fill(0));
 
       for (let k = -2; k <= 2; k++) {
         for (let j = -2; j <= 2; j++) {
-          m[offset + posAsteriodY + k][offset + posAsteriodX + j] = 1;
+          m[offsetX + posAsteriodX + k][offsetY + posAsteriodY + j] = 1;
         }
       }
       // incepem de la offset offset
       let path = findPath(
         m,
-        { x: offset, y: offset },
-        { y: offset + posY, x: offset + posX }
+        { x: offsetX, y: offsetY },
+        { x: offsetX + posY, y: offsetY + posX }
       );
 
-      /*  m[offset][offset] = 3; // start
-      m[offset + posY][offset + posX] = 2; // tinta
-
-      result.push(
-        printMatrixWithPath(
-          m,
-          path.map(([x, y]) => ({ x, y })),
-          (value) => {
-            if (value === 0) return ".";
-            if (value === 1) return "#";
-            if (value === 2) return "E";
-            if (value === 3) return "S";
-            return "*";
-          }
-        )
-      ); */
-      // return 0;
-
       let newPath = PF.Util.compressPath(path);
-      console.log(newPath);
+      console.log("after", newPath);
+
+      /*    m[offsetX][offsetY] = 3;
+      m[offsetX + posX][offsetY + posY] = 2;
+      printMatrixWithPath(
+        m,
+        path.map((p) => ({
+          x: p[0],
+          y: p[1],
+        }))
+      );
+      return 0; */
 
       for (let i = 0; i < newPath.length - 1; i++) {
         const curr = newPath[i];
@@ -106,7 +100,7 @@ runCaroshark({
       result.push(rX.trim());
       result.push("");
     }
-    return result.join("\r\n");
+    return result.join("\n");
     /* let result: any = [];
     for (let row of data.lines) {
       let _v = row.split(" ");

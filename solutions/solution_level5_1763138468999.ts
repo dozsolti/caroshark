@@ -50,27 +50,19 @@ runCaroshark({
         { y: offset + posY, x: offset + posX }
       );
 
-      /*  m[offset][offset] = 3; // start
+      m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
 
-      result.push(
-        printMatrixWithPath(
-          m,
-          path.map(([x, y]) => ({ x, y })),
-          (value) => {
-            if (value === 0) return ".";
-            if (value === 1) return "#";
-            if (value === 2) return "E";
-            if (value === 3) return "S";
-            return "*";
-          }
-        )
-      ); */
+      /* printMatrixWithPath(m, path.map(([x, y]) => ({ x, y })), (value)=>{
+        if(value === 0) return ".";
+        if(value === 1) return "#";
+        if(value === 2) return "E";
+        if(value === 3) return "S";
+        return "*";
+      }); */
       // return 0;
 
       let newPath = PF.Util.compressPath(path);
-      console.log(newPath);
-
       for (let i = 0; i < newPath.length - 1; i++) {
         const curr = newPath[i];
         const next = newPath[i + 1];
@@ -104,9 +96,9 @@ runCaroshark({
 
       result.push(rY.trim());
       result.push(rX.trim());
-      result.push("");
+      result.push(""); 
     }
-    return result.join("\r\n");
+    return result.join("\n");
     /* let result: any = [];
     for (let row of data.lines) {
       let _v = row.split(" ");
