@@ -3,13 +3,14 @@ import { InToJSParser } from 'in-to-js';
 import { runCaroshark } from './lib/caroshark';
 
 export const parser = (s: string[]) =>
-  InToJSParser.create(s).number("n").lines("lines", "n").build();
+  InToJSParser.create(s).number("n").array("lines", "n").build();
 
 runCaroshark({
   parser,
   subLevelRange: [1, 2],
   main: async (data) => {
     let result: any = [];
+
     for (let row of data.lines) {
       let _v = row.split(" ");
       const posX = +_v[0].split(",")[0];
@@ -24,16 +25,12 @@ runCaroshark({
     return result.join("\n");
   },
 });
-
 function calcSeq(spaceStation: number) {
-  if (spaceStation === 0) return "0 0";
   let s = [0];
-  const maxSpeed = Math.min(
-    5,
+  const maxSpeed =
     Math.abs(spaceStation) > 10
       ? 1
-      : 5 - Math.floor((Math.abs(spaceStation) - 1) / 2)
-  );
+      : 5 - Math.floor((Math.abs(spaceStation) - 1) / 2);
 
   let i = 6;
   while (i > maxSpeed) {
@@ -60,5 +57,5 @@ function calcSeq(spaceStation: number) {
   }
 
   s.push(0);
-  return s.map((x) => (spaceStation < 0 ? -x : x)).join(" ");
+  return s.map((x) => (spaceStation < 0 ? -x : x));
 }

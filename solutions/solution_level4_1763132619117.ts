@@ -26,7 +26,6 @@ runCaroshark({
 });
 
 function calcSeq(spaceStation: number) {
-  if (spaceStation === 0) return "0 0";
   let s = [0];
   const maxSpeed = Math.min(
     5,

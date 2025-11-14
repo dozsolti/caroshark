@@ -26,14 +26,11 @@ runCaroshark({
 });
 
 function calcSeq(spaceStation: number) {
-  if (spaceStation === 0) return "0 0";
   let s = [0];
-  const maxSpeed = Math.min(
-    5,
+  const maxSpeed =
     Math.abs(spaceStation) > 10
       ? 1
-      : 5 - Math.floor((Math.abs(spaceStation) - 1) / 2)
-  );
+      : 5 - Math.floor((Math.abs(spaceStation) - 1) / 2);
 
   let i = 6;
   while (i > maxSpeed) {
@@ -41,23 +38,23 @@ function calcSeq(spaceStation: number) {
     s.push(i);
   }
 
-  if (Math.abs(spaceStation) > 10) {
-    let unuCount = Math.abs(spaceStation) - 8;
+  // if (Math.abs(spaceStation) > 10) {
+  //   let unuCount = Math.abs(spaceStation) - 8;
 
-    for (let j = 0; j < unuCount - 1; j++) {
-      s.push(1);
-    }
-  } else {
-    if (spaceStation % 2 == 0) {
-      s.push(maxSpeed);
-    }
-  }
+  //   for (let j = 0; j < unuCount - 1; j++) {
+  //     s.push(1);
+  //   }
+  // } else {
+  //   if (spaceStation % 2 == 0) {
+  //     s.push(maxSpeed);
+  //   }
+  // }
 
-  i++;
-  while (i <= 5) {
-    s.push(i);
-    i++;
-  }
+  // i++;
+  // while (i <= 5) {
+  //   s.push(i);
+  //   i++;
+  // }
 
   s.push(0);
   return s.map((x) => (spaceStation < 0 ? -x : x)).join(" ");
