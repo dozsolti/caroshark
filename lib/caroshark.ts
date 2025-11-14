@@ -122,14 +122,14 @@ export async function runCaroshark(config: {
 
   async function runExample() {
     const exampleIn = readInFile(
-      path.join(levelsFolder, `level${level}_in`, `level${level}_example.in`)
+      path.join(levelsFolder, `level${level}_in`, `level${level}_0_example.in`)
     );
     const exampleOut = fs
       .readFileSync(
         path.join(
           levelsFolder,
           `level${level}_in`,
-          `level${level}_example.out`
+          `level${level}_0_example.out`
         ),
         { encoding: "utf-8" }
       )

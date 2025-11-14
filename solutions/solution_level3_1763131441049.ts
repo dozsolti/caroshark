@@ -15,14 +15,13 @@ runCaroshark({
     let result: any = [];
 
     for (let { spaceStation, timeLimit } of data.lines) {
- 
       let s = [0];
       if (spaceStation == 1) {
         s = [0, 5, 0];
       } else if (spaceStation == -1) {
         s = [0, -5, 0];
       }
-      else if (spaceStation == 2) {
+      if (spaceStation == 2) {
         s = [0, 5, 5, 0];
       } else if (spaceStation == -2) {
         s = [0, -5, -5, 0];
@@ -58,7 +57,6 @@ runCaroshark({
 
         s.push(0);
       }
-
       result.push(s.map((x) => (spaceStation < 0 ? -x : x)).join(" "));
     }
 
