@@ -83,7 +83,7 @@ export function findPath(
 }
 
 /**
- * @description all arrangements of an array (with repetition)
+ * @description all arrangements of an array (with repetition), aka Cartesian Product
  * @example [101, 202] => [101,101], [101,202], [202,101], [202,202]
  */
 export function backtrack<T>(
@@ -134,7 +134,6 @@ export function permutations<T>(
   }
 }
 /**
- *
  * @description all subsets of an array WITHOUT empty set
  * @example [101, 202, 303] => [101], [202], [303], [101,202], [101,303], [202,303], [101,202,303]
  */
@@ -157,7 +156,6 @@ export function subsets<T>(
 }
 
 /**
- *
  * @description like string.split but on array
  * @example splitArrayBy([1,2,0,3,4,0,5], x => x == 0) => [[1,2],[3,4],[5]]
  */

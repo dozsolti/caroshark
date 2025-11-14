@@ -26,9 +26,6 @@ runCaroshark({
       // Part 1: worst case
       result += "P" + "R".repeat(data.m / 2 - 1);
       result += "S".repeat(line.s);
-      if(result.length > data.m) {
-        result = result.substring(0, data.m);
-      }
 
       let count = line.s;
       while (count < data.m / 2) {

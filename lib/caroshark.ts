@@ -32,7 +32,7 @@ export async function runCaroshark(config: {
   const runType: RunType = config.runType || (process.argv[2] as RunType);
   const printFunc = config.printFunc || console.log;
 
-  const level = findLevel();
+  const level = 4;//findLevel();
 
   setupFolders(level);
 
