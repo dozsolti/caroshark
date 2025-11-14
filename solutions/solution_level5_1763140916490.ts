@@ -53,7 +53,7 @@ runCaroshark({
         { x: offset, y: offset },
         { x: offset + posX, y: offset + posY }
       );
-      // console.log(path)
+      console.log(path)
       m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
 

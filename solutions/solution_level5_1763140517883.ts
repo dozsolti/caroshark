@@ -2,6 +2,7 @@ import { InToJSParser } from 'in-to-js';
 import PF from 'pathfinding';
 
 import { runCaroshark } from './lib/caroshark';
+import { findPath } from './lib/caroshark-utils';
 
 export const parser = (s: string[]) =>
   InToJSParser.create(s)
@@ -43,17 +44,12 @@ runCaroshark({
         }
       }
       // incepem de la offset offset
-      // let path = findPath(
-      //   m,
-      //   { x: offset, y: offset },
-      //   { x: offset + posX, y: offset + posY }
-      // );
-      let path = leeAlgorithm(
+      let path = findPath(
         m,
         { x: offset, y: offset },
         { x: offset + posX, y: offset + posY }
       );
-      // console.log(path)
+
       m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
 
@@ -174,72 +170,4 @@ function calcSeq(spaceStation: number): string {
 
   s.push(0);
   return s.map((x) => (spaceStation < 0 ? -x : x)).join(" ");
-}
-
-function leeAlgorithm(
-  matrix: number[][],
-  start: { x: number; y: number },
-  end: { x: number; y: number }
-): number[][] {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
-  const distance = Array(rows)
-    .fill(null)
-    .map(() => Array(cols).fill(-1));
-  const parent = Array(rows)
-    .fill(null)
-    .map(() => Array(cols).fill(null));
-  const queue: { x: number; y: number; dist: number }[] = [];
-
-  // Directions: up, down, left, right
-  const directions = [
-    [-1, 0],
-    [1, 0],
-    [0, -1],
-    [0, 1],
-  ];
-
-  // Mark start position
-  distance[start.y][start.x] = 0;
-  queue.push({ x: start.x, y: start.y, dist: 0 });
-
-  while (queue.length > 0) {
-    const current = queue.shift()!;
-
-    // If we reached the end
-    if (current.x === end.x && current.y === end.y) {
-      // Reconstruct path
-      const path: number[][] = [];
-      let curr = { x: end.x, y: end.y };
-      
-      while (curr) {
-        path.unshift([curr.x, curr.y]);
-        curr = parent[curr.y][curr.x];
-      }
-      
-      return path;
-    }
-
-    // Explore neighbors
-    for (const [dy, dx] of directions) {
-      const newX = current.x + dx;
-      const newY = current.y + dy;
-
-      // Check bounds and if cell is accessible
-      if (
-        newX >= 0 &&
-        newX < cols &&
-        newY >= 0 &&
-        newY < rows &&
-        matrix[newY][newX] === 0 &&
-        distance[newY][newX] === -1
-      ) {
-        distance[newY][newX] = current.dist + 1;
-        parent[newY][newX] = { x: current.x, y: current.y };
-        queue.push({ x: newX, y: newY, dist: current.dist + 1 });
-      }
-    }
-  }
-
-  return []; // No path found
 }
