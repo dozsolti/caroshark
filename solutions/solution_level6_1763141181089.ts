@@ -49,11 +49,11 @@ runCaroshark({
         { x: offset, y: offset },
         { x: offset + posX, y: offset + posY }
       );
-      // let path = leeAlgorithm(
-      //   m,
-      //   { x: offset, y: offset },
-      //   { x: offset + posX, y: offset + posY }
-      // );
+      /* let path = leeAlgorithm(
+        m,
+        { x: offset, y: offset },
+        { x: offset + posX, y: offset + posY }
+      ); */
       // console.log(path)
       m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
@@ -87,60 +87,22 @@ runCaroshark({
         let deltaX = next[0] - curr[0];
         let deltaY = next[1] - curr[1];
 
-        let diagonalMovement = Math.min(Math.abs(deltaX), Math.abs(deltaY));
+        if (deltaX !== 0) {
+          let sq = calcSeq(deltaX);
+          rX += sq + " ";
 
-        if (diagonalMovement != 0) {
-          let sqd = calcSeq(diagonalMovement);
-          if(deltaX < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rX += sqd + " ";
-          if(deltaY < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rY += sqd + " ";
-        } else if (deltaX !== 0) {
-          let sqX = calcSeq(deltaX);
-          rX += sqX + " ";
-
-          if (deltaY === 0) {
-            rY += sqX
-              .split(" ")
-              .map((x) => "0 ".repeat(Math.abs(+x)))
-              .join(" ");
-          } else {
-            let sqY = calcSeq(deltaY);
-            rY += sqY + " ";
-
-            let durX = calcSeqDuration(sqX);
-            let durY = calcSeqDuration(sqY);
-            let diff = durX - durY;
-
-            if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
-            } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
-            }
-          }
-        } else if (deltaY !== 0) {
-          let sqY = calcSeq(deltaY);
-          rY += sqY + " ";
-
-          if (deltaX === 0) {
-            rX += sqY
-              .split(" ")
-              .map((x) => "0 ".repeat(Math.abs(+x)))
-              .join(" ");
-          } else {
-            let sqX = calcSeq(deltaX);
-            rX += sqX + " ";
-
-            let durX = calcSeqDuration(sqX);
-            let durY = calcSeqDuration(sqY);
-            let diff = durX - durY;
-
-            if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
-            } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
-            }
-          }
+          rY += sq
+            .split(" ")
+            .map((x) => "0 ".repeat(Math.abs(+x)))
+            .join(" ");
+        }
+        if (deltaY !== 0) {
+          let sq = calcSeq(deltaY);
+          rY += sq + " ";
+          rX += sq
+            .split(" ")
+            .map((x) => "0 ".repeat(Math.abs(+x)))
+            .join(" ");
         }
       }
 
@@ -177,17 +139,9 @@ runCaroshark({
   },
 });
 
-function calcSeqDuration(s: string) {
-  return s
-    .trim()
-    .split(" ")
-    .map((x) => +x)
-    .reduce((a, b) => a + Math.max(1, Math.abs(b)), 0);
-}
-
 function calcSeq(spaceStation: number): string {
   if (spaceStation === 0) return "0 0";
-  let s: any = [0];
+  let s = [0];
   const maxSpeed = Math.min(
     5,
     Math.abs(spaceStation) > 10
@@ -238,16 +192,12 @@ function leeAlgorithm(
     .map(() => Array(cols).fill(null));
   const queue: { x: number; y: number; dist: number }[] = [];
 
-  // Directions: up, down, left, right, and diagonals
+  // Directions: up, down, left, right
   const directions = [
-    [-1, 0], // up
-    [1, 0], // down
-    [0, -1], // left
-    [0, 1], // right
-    [-1, -1], // up-left
-    [-1, 1], // up-right
-    [1, -1], // down-left
-    [1, 1], // down-right
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
   ];
 
   // Mark start position
@@ -262,12 +212,12 @@ function leeAlgorithm(
       // Reconstruct path
       const path: number[][] = [];
       let curr = { x: end.x, y: end.y };
-
+      
       while (curr) {
         path.unshift([curr.x, curr.y]);
         curr = parent[curr.y][curr.x];
       }
-
+      
       return path;
     }
 

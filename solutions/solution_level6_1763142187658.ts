@@ -87,15 +87,7 @@ runCaroshark({
         let deltaX = next[0] - curr[0];
         let deltaY = next[1] - curr[1];
 
-        let diagonalMovement = Math.min(Math.abs(deltaX), Math.abs(deltaY));
-
-        if (diagonalMovement != 0) {
-          let sqd = calcSeq(diagonalMovement);
-          if(deltaX < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rX += sqd + " ";
-          if(deltaY < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rY += sqd + " ";
-        } else if (deltaX !== 0) {
+        if (deltaX !== 0) {
           let sqX = calcSeq(deltaX);
           rX += sqX + " ";
 
@@ -113,9 +105,9 @@ runCaroshark({
             let diff = durX - durY;
 
             if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
+              rY += "0 ".repeat(diff) + " ";
             } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
+              rX += "0 ".repeat(-diff) + " ";
             }
           }
         } else if (deltaY !== 0) {
@@ -136,9 +128,9 @@ runCaroshark({
             let diff = durX - durY;
 
             if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
+              rY += "0 ".repeat(diff) + " ";
             } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
+              rX += "0 ".repeat(-diff) + " ";
             }
           }
         }
@@ -240,14 +232,14 @@ function leeAlgorithm(
 
   // Directions: up, down, left, right, and diagonals
   const directions = [
-    [-1, 0], // up
-    [1, 0], // down
-    [0, -1], // left
-    [0, 1], // right
+    [-1, 0],  // up
+    [1, 0],   // down
+    [0, -1],  // left
+    [0, 1],   // right
     [-1, -1], // up-left
-    [-1, 1], // up-right
-    [1, -1], // down-left
-    [1, 1], // down-right
+    [-1, 1],  // up-right
+    [1, -1],  // down-left
+    [1, 1],   // down-right
   ];
 
   // Mark start position

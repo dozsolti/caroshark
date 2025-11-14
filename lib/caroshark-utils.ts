@@ -59,8 +59,8 @@ export function findPath(
 ) {
   const grid = new PF.Grid(m);
 
-  const finder = new PF.AStarFinder({
-    allowDiagonal: false,
+  const finder = new PF.AStarFinder ({
+    allowDiagonal: true,
     dontCrossCorners: true,
   });
 

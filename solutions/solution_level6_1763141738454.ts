@@ -2,7 +2,6 @@ import { InToJSParser } from 'in-to-js';
 import PF from 'pathfinding';
 
 import { runCaroshark } from './lib/caroshark';
-import { findPath } from './lib/caroshark-utils';
 
 export const parser = (s: string[]) =>
   InToJSParser.create(s)
@@ -44,16 +43,16 @@ runCaroshark({
         }
       }
       // incepem de la offset offset
-      let path = findPath(
-        m,
-        { x: offset, y: offset },
-        { x: offset + posX, y: offset + posY }
-      );
-      // let path = leeAlgorithm(
+      // let path = findPath(
       //   m,
       //   { x: offset, y: offset },
       //   { x: offset + posX, y: offset + posY }
       // );
+      let path = leeAlgorithm(
+        m,
+        { x: offset, y: offset },
+        { x: offset + posX, y: offset + posY }
+      );
       // console.log(path)
       m[offset][offset] = 3; // start
       m[offset + posY][offset + posX] = 2; // tinta
@@ -87,15 +86,7 @@ runCaroshark({
         let deltaX = next[0] - curr[0];
         let deltaY = next[1] - curr[1];
 
-        let diagonalMovement = Math.min(Math.abs(deltaX), Math.abs(deltaY));
-
-        if (diagonalMovement != 0) {
-          let sqd = calcSeq(diagonalMovement);
-          if(deltaX < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rX += sqd + " ";
-          if(deltaY < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rY += sqd + " ";
-        } else if (deltaX !== 0) {
+        if (deltaX !== 0) {
           let sqX = calcSeq(deltaX);
           rX += sqX + " ";
 
@@ -113,17 +104,18 @@ runCaroshark({
             let diff = durX - durY;
 
             if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
+              rY += "0 ".repeat(diff) + " ";
             } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
+              rX += "0 ".repeat(-diff) + " ";
             }
           }
-        } else if (deltaY !== 0) {
+        }
+        if (deltaY !== 0) {
           let sqY = calcSeq(deltaY);
           rY += sqY + " ";
 
           if (deltaX === 0) {
-            rX += sqY
+            rX += sqY 
               .split(" ")
               .map((x) => "0 ".repeat(Math.abs(+x)))
               .join(" ");
@@ -136,9 +128,9 @@ runCaroshark({
             let diff = durX - durY;
 
             if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
+              rY += "0 ".repeat(diff) + " ";
             } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
+              rX += "0 ".repeat(-diff) + " ";
             }
           }
         }
@@ -187,7 +179,7 @@ function calcSeqDuration(s: string) {
 
 function calcSeq(spaceStation: number): string {
   if (spaceStation === 0) return "0 0";
-  let s: any = [0];
+  let s = [0];
   const maxSpeed = Math.min(
     5,
     Math.abs(spaceStation) > 10
@@ -238,16 +230,12 @@ function leeAlgorithm(
     .map(() => Array(cols).fill(null));
   const queue: { x: number; y: number; dist: number }[] = [];
 
-  // Directions: up, down, left, right, and diagonals
+  // Directions: up, down, left, right
   const directions = [
-    [-1, 0], // up
-    [1, 0], // down
-    [0, -1], // left
-    [0, 1], // right
-    [-1, -1], // up-left
-    [-1, 1], // up-right
-    [1, -1], // down-left
-    [1, 1], // down-right
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
   ];
 
   // Mark start position

@@ -87,23 +87,15 @@ runCaroshark({
         let deltaX = next[0] - curr[0];
         let deltaY = next[1] - curr[1];
 
-        let diagonalMovement = Math.min(Math.abs(deltaX), Math.abs(deltaY));
-
-        if (diagonalMovement != 0) {
-          let sqd = calcSeq(diagonalMovement);
-          if(deltaX < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rX += sqd + " ";
-          if(deltaY < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rY += sqd + " ";
-        } else if (deltaX !== 0) {
+        if (deltaX !== 0) {
           let sqX = calcSeq(deltaX);
           rX += sqX + " ";
 
           if (deltaY === 0) {
-            rY += sqX
-              .split(" ")
-              .map((x) => "0 ".repeat(Math.abs(+x)))
-              .join(" ");
+            // rY += sqX
+            //   .split(" ")
+            //   .map((x) => "0 ".repeat(Math.abs(+x)))
+            //   .join(" ");
           } else {
             let sqY = calcSeq(deltaY);
             rY += sqY + " ";
@@ -112,21 +104,21 @@ runCaroshark({
             let durY = calcSeqDuration(sqY);
             let diff = durX - durY;
 
-            if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
-            } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
-            }
+            // if (durX > durY) {
+            //   rY += "0 ".repeat(diff + 1) + " ";
+            // } else {
+            //   rX += "0 ".repeat(-diff + 1) + " ";
+            // }
           }
         } else if (deltaY !== 0) {
           let sqY = calcSeq(deltaY);
           rY += sqY + " ";
 
           if (deltaX === 0) {
-            rX += sqY
-              .split(" ")
-              .map((x) => "0 ".repeat(Math.abs(+x)))
-              .join(" ");
+            // rX += sqY
+            //   .split(" ")
+            //   .map((x) => "0 ".repeat(Math.abs(+x)))
+            //   .join(" ");
           } else {
             let sqX = calcSeq(deltaX);
             rX += sqX + " ";
@@ -135,11 +127,11 @@ runCaroshark({
             let durY = calcSeqDuration(sqY);
             let diff = durX - durY;
 
-            if (durX > durY) {
-              rY += "0 ".repeat(diff + 1) + " ";
-            } else {
-              rX += "0 ".repeat(-diff + 1) + " ";
-            }
+            // if (durX > durY) {
+            //   rY += "0 ".repeat(diff + 1) + " ";
+            // } else {
+            //   rX += "0 ".repeat(-diff + 1) + " ";
+            // }
           }
         }
       }

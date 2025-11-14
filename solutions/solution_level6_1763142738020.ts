@@ -87,14 +87,12 @@ runCaroshark({
         let deltaX = next[0] - curr[0];
         let deltaY = next[1] - curr[1];
 
-        let diagonalMovement = Math.min(Math.abs(deltaX), Math.abs(deltaY));
+        let diagonalMovement = Math.min((deltaX), (deltaY));
 
         if (diagonalMovement != 0) {
           let sqd = calcSeq(diagonalMovement);
-          if(deltaX < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rX += sqd + " ";
-          if(deltaY < 0) sqd = sqd.split(" ").map(x => -x).join(" ");
-          rY += sqd + " ";
+          rX += sqd;
+          rY += sqd;
         } else if (deltaX !== 0) {
           let sqX = calcSeq(deltaX);
           rX += sqX + " ";
