@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace CloudflightEnvironment
 {
@@ -9,29 +10,92 @@ namespace CloudflightEnvironment
         {
             var result = new List<string>();
 
-            for(int l = 1; l < input.Length; l++)
+            for (int l = 1; l < input.Length; l++)
             {
                 int radius = int.Parse(input[l]);
+                int init = radius;
+                
+                int indent = radius;
 
-                for (int row = 0; row < 2 * radius + 1; row++)
+
+                while (indent >= 0)
                 {
-                    int distance = Math.Abs(radius - row);
-                    int cellCount = radius + 2 - distance;
+                    StringBuilder sb = new StringBuilder();
+                    for (int y = 0; y < indent; y++)
+                    {
+                        sb.Append("-");
+                    }
+                    if (indent == radius)
+                    {
+                        for (int y = 0; y < radius + 1; y++)
+                        {
+                            sb.Append("*-");
+                        }
+                    }
+                    else
+                    {
+                        sb.Append("*-");
 
-                    string line =
-                        new string('-', distance) +
-                        "*" +
-                        string.Join("", new string('O', cellCount)
-                            .ToCharArray()) +
-                        "*";
-
-                    result.Add(line);
+                        for (int y = 0; y < radius; y++)
+                        {
+                            sb.Append("O-");
+                        }
+                        sb.Append("-*");
+                    }
+                    for (int y = 0; y < indent - 1; y++)
+                    {
+                        sb.Append("-");
+                    }
+                    
+                    result.Add(sb.ToString());
+         
+                    indent--;
+                    radius++;
                 }
 
-                result.Add('');
+                while(indent <= init)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int y = 0; y < indent; y++)
+                    {
+                        sb.Append("-");
+                    }
+                    if (indent == radius)
+                    {
+                        for (int y = 0; y < radius + 1; y++)
+                        {
+                            sb.Append("*-");
+                        }
+                    }
+                    else
+                    {
+                        sb.Append("*-");
+
+                        for (int y = 0; y < radius; y++)
+                        {
+                            sb.Append("O-");
+                        }
+                        sb.Append("*");
+                    }
+                    for (int y = 0; y < indent - 1; y++)
+                    {
+                        sb.Append("-");
+                    }
+
+                    result.Add(sb.ToString());
+
+                    indent++;
+                    radius--;
+                }
+
+                result.Add(Environment.NewLine);
+
+
             }
 
             return result;
+
+                
 
 
         }
