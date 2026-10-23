@@ -1,28 +1,39 @@
-﻿namespace CloudflightEnvironment
+﻿using System.Runtime.CompilerServices;
+
+namespace CloudflightEnvironment
 {
     class Level1 : Level
     {
         public Level1() : base(1) { }
         public override List<string> Solve()
         {
-            List<string> result = new List<string>();
-            
-            for(int i = 0; i < input.Length; i++)
+            var result = new List<string>();
+
+            for(int l = 1; l < input.Length; l++)
             {
-                if(i == 0)
+                int radius = int.Parse(input[l]);
+
+                for (int row = 0; row < 2 * radius + 1; row++)
                 {
-                    // Skip the first line if it contains metadata or is not needed
-                    continue;
+                    int distance = Math.Abs(radius - row);
+                    int cellCount = radius + 2 - distance;
+
+                    string line =
+                        new string('-', distance) +
+                        "*" +
+                        string.Join("", new string('O', cellCount)
+                            .ToCharArray()) +
+                        "*";
+
+                    result.Add(line);
                 }
-                string line = input[i];
-                // Process the line and generate output
-                int[] ints = line.Split(' ').Select(int.Parse).ToArray();
-                // Do something with the parsed integers, e.g., sum them up
-                int sum = ints.Sum();
-                result.Add(sum.ToString());
+
+                result.Add('');
             }
 
             return result;
+
+
         }
 
     }
