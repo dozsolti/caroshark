@@ -13,80 +13,56 @@ namespace CloudflightEnvironment
             for (int l = 1; l < input.Length; l++)
             {
                 int radius = int.Parse(input[l]);
-                int init = radius;
-                
-                int indent = radius;
 
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < radius; i++)
+                    sb.Append('-');
+                for(int i = 0; i < radius +  1; i++)
+                    sb.Append("*-");
+                for (int i = 0; i < radius - 1; i++)
+                    sb.Append('-');
 
-                while (indent >= 0)
+                result.Add(sb.ToString());
+
+                for (int row = 0; row < radius; row++)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    for (int y = 0; y < indent; y++)
-                    {
-                        sb.Append("-");
-                    }
-                    if (indent == radius)
-                    {
-                        for (int y = 0; y < radius + 1; y++)
-                        {
-                            sb.Append("*-");
-                        }
-                    }
-                    else
-                    {
-                        sb.Append("*-");
+                    StringBuilder line = new StringBuilder();
+                    for (int i = 0; i < radius - row - 1; i++)
+                        line.Append('-');
+                    line.Append("*-");
+                    for (int i = 0; i < radius + row; i++)
+                        line.Append("O-");
+                    line.Append("*");
+                    for (int i = 0; i < radius - row - 1; i++)
+                        line.Append('-');
 
-                        for (int y = 0; y < radius; y++)
-                        {
-                            sb.Append("O-");
-                        }
-                        sb.Append("-*");
-                    }
-                    for (int y = 0; y < indent - 1; y++)
-                    {
-                        sb.Append("-");
-                    }
-                    
-                    result.Add(sb.ToString());
-         
-                    indent--;
-                    radius++;
+                    result.Add(line.ToString());
                 }
 
-                while(indent <= init)
+                for (int row = radius - 2; row >= 0; row--)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    for (int y = 0; y < indent; y++)
-                    {
-                        sb.Append("-");
-                    }
-                    if (indent == radius)
-                    {
-                        for (int y = 0; y < radius + 1; y++)
-                        {
-                            sb.Append("*-");
-                        }
-                    }
-                    else
-                    {
-                        sb.Append("*-");
+                    StringBuilder line = new StringBuilder();
+                    for (int i = 0; i < radius - row - 1; i++)
+                        line.Append('-');
+                    line.Append("*-");
+                    for (int i = 0; i < radius + row; i++)
+                        line.Append("O-");
+                    line.Append("*");
+                    for (int i = 0; i < radius - row - 1; i++)
+                        line.Append('-');
 
-                        for (int y = 0; y < radius; y++)
-                        {
-                            sb.Append("O-");
-                        }
-                        sb.Append("*");
-                    }
-                    for (int y = 0; y < indent - 1; y++)
-                    {
-                        sb.Append("-");
-                    }
-
-                    result.Add(sb.ToString());
-
-                    indent++;
-                    radius--;
+                    result.Add(line.ToString());
                 }
+
+                sb = new StringBuilder();
+                for (int i = 0; i < radius; i++)
+                    sb.Append('-');
+                for (int i = 0; i < radius + 1; i++)
+                    sb.Append("*-");
+                for (int i = 0; i < radius - 1; i++)
+                    sb.Append('-');
+
+                result.Add(sb.ToString());
 
                 result.Add(Environment.NewLine);
 
