@@ -6,7 +6,7 @@ namespace CloudflightEnvironment
     {
         static void Main(string[] args)
         {
-            Level solver = new Level4();
+            Level solver = new Level5();
 
             solver.ShowConsole();
 
