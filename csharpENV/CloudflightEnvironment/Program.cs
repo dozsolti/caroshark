@@ -6,11 +6,11 @@ namespace CloudflightEnvironment
     {
         static void Main(string[] args)
         {
-            Level solver = new Level5();
+            Level solver = new Level6();
 
             solver.ShowConsole();
 
-            solver.SolveAll();
+            //solver.SolveAll();
         }
     }
 }

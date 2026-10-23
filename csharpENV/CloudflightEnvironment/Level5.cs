@@ -213,30 +213,6 @@ namespace CloudflightEnvironment
                             submit = false;
                     }
 
-                    //for (int row = 0; row < grid.Length; row++)
-                    //{
-                    //    StringBuilder sb = new StringBuilder();
-                    //    for (int col = 0; col < grid[row].Length; col++)
-
-                    //    {
-                    //        if (grid[row][col] == null)
-                    //            sb.Append('-');
-                    //        //else
-                    //        //{
-                    //        //    sb.Append(grid[row][col].Material + 1);
-                    //        //}
-                    //        else if (grid[row][col].IsBorder)
-                    //            sb.Append('*');
-                    //        else if (grid[row][col].Material < 1)
-                    //            sb.Append('O');
-                    //        else
-                    //            sb.Append('M');
-                    //    }
-                    //    result.Add(sb.ToString());
- 
-                    //}
-                    //result.Add(Environment.NewLine);
-
                     if (submit)
                     {
                         foreach(Hexa pat in pattern)
@@ -245,60 +221,10 @@ namespace CloudflightEnvironment
                         }
                         submitted++;
 
-                    }
-
-                    //for (int row = 0; row < grid.Length; row++)
-                    //{
-                    //    StringBuilder sb = new StringBuilder();
-                    //    for (int col = 0; col < grid[row].Length; col++)
-
-                    //    {
-                    //        if (grid[row][col] == null)
-                    //            sb.Append('-');
-                    //        //else
-                    //        //{
-                    //        //    sb.Append(grid[row][col].Material + 1);
-                    //        //}
-                    //        else if (grid[row][col].IsBorder)
-                    //            sb.Append('*');
-                    //        else if (grid[row][col].Material < 1)
-                    //            sb.Append('O');
-                    //        else
-                    //            sb.Append('M');
-                    //    }
-                    //    result.Add(sb.ToString());
-                        
-                    //}
-                    //result.Add(Environment.NewLine);
-
-                   
+                    }                
 
                 }
 
-                //for (int row = 0; row < grid.Length; row++)
-                //{
-                //    StringBuilder sb = new StringBuilder();
-                //    for (int col = 0; col < grid[row].Length; col++)
-
-                //    {
-                //        if (grid[row][col] == null)
-                //            sb.Append('-');
-                //        //else
-                //        //{
-                //        //    sb.Append(grid[row][col].Material + 1);
-                //        //}
-                //        else if (grid[row][col].IsBorder)
-                //            sb.Append('*');
-                //        else if (grid[row][col].Material < 1)
-                //            sb.Append('O');
-                //        else
-                //            sb.Append('M');
-                //    }
-                //    result.Add(sb.ToString());
-                //}
-
-
-                //result.Add(Environment.NewLine);
                 result.Add(submitted.ToString());
 
                 driver++;
