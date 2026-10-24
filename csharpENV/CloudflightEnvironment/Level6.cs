@@ -104,13 +104,25 @@ namespace CloudflightEnvironment
                 }
 
                 Hexa toMaterialize = pattern[0];
-                while (submitted < amount)
+                while (true)
                 {
                     if (grid[toMaterialize.Row][toMaterialize.Col].Material == 1)
                     {
                         toMaterialize = pattern.FirstOrDefault(p => grid[p.Row][p.Col].Material != 1);
-                        if(toMaterialize == null)
-                            throw new Exception("No more patterns to materialize");
+                        if (toMaterialize == null)
+                        {
+                            submitted++;
+                            foreach(Hexa pat in pattern)
+                            {
+                                grid[pat.Row][pat.Col].Material = 0;
+                                
+                            }
+                            if (submitted >= amount)
+                                break;
+                            
+                            toMaterialize = pattern[0];
+                        }
+                            
                     }
 
                     StringBuilder instruction = new StringBuilder();
@@ -124,18 +136,20 @@ namespace CloudflightEnvironment
                     else if (one.IsActive)
                     {
                         instruction.Append("T - - - - -");
+                        
                     }
-                    else if(one.Row == targetRow && three.Col == targetCol)
+                    else if(one.Row == targetRow && three.Col + three.Row == targetCol + targetRow)
                     {
                         instruction.Append("T - - - - -");
+                        grid[toMaterialize.Row][toMaterialize.Col].Material = 1;
                     }
                     else
                     {
-                        if (one.Row < targetRow)
+                        if (one.Row > targetRow)
                         {
                             instruction.Append("F");
                         }
-                        else if (one.Row > targetRow)
+                        else if (one.Row < targetRow)
                         {
                             instruction.Append("B");
                         }
@@ -147,11 +161,11 @@ namespace CloudflightEnvironment
                         instruction.Append(" -");
 
 
-                        if (three.Col < targetCol)
+                        if (three.Col + three.Row > targetRow + targetCol)
                         {
                             instruction.Append(" B ");
                         }
-                        else if (three.Col > targetCol)
+                        else if (three.Col + three.Row < targetCol + targetRow)
                         {
                             instruction.Append(" F ");
                         }
@@ -196,90 +210,88 @@ namespace CloudflightEnvironment
                     }
 
 
-                    foreach (Emm em in emmitters)
-                    {
-                        if (!em.IsActive)
-                        {
-                            continue;
-                        }
+                    //foreach (Emm em in emmitters)
+                    //{
+                    //    if (!em.IsActive)
+                    //    {
+                    //        continue;
+                    //    }
 
-                        int startRow = em.Row;
-                        int startCol = em.Col;
-                        int[] dir = Dirs[em.Dir - 1];
+                    //    int startRow = em.Row;
+                    //    int startCol = em.Col;
+                    //    int[] dir = Dirs[em.Dir - 1];
 
-                        while (true)
-                        {
-                            startRow += dir[0];
-                            startCol += dir[1];
-                            if (startRow < 0 || startRow >= grid.Length || startCol < 0 || startCol >= grid[startRow].Length)
-                                break;
-                            Hexa current = grid[startRow][startCol];
-                            if (current == null)
-                                continue;
+                    //    while (true)
+                    //    {
+                    //        startRow += dir[0];
+                    //        startCol += dir[1];
+                    //        if (startRow < 0 || startRow >= grid.Length || startCol < 0 || startCol >= grid[startRow].Length)
+                    //            break;
+                    //        Hexa current = grid[startRow][startCol];
+                    //        if (current == null)
+                    //            continue;
 
-                            if (!current.IsBorder)
-                                current.Mark++;
-                        }
-                    }
+                    //        if (!current.IsBorder)
+                    //            current.Mark++;
+                    //    }
+                    //}
 
-                    for (int row = 0; row < grid.Length; row++)
-                    {
-                        for (int col = 0; col < grid[row].Length; col++)
-                        {
-                            if (grid[row][col] != null && grid[row][col].Mark > 2)
-                            {
-                                grid[row][col].Material = 0;
-                            }
-                            else if (grid[row][col] != null && grid[row][col].Mark == 2)
-                            {
-                                grid[row][col].Material = 1;
-                            }
-                            if (grid[row][col] != null)
-                                grid[row][col].Mark = 0;
-                        }
-                    }
+                    //for (int row = 0; row < grid.Length; row++)
+                    //{
+                    //    for (int col = 0; col < grid[row].Length; col++)
+                    //    {
+                    //        if (grid[row][col] != null && grid[row][col].Mark > 2)
+                    //        {
+                    //            grid[row][col].Material = 0;
+                    //        }
+                    //        else if (grid[row][col] != null && grid[row][col].Mark == 2)
+                    //        {
+                    //            grid[row][col].Material = 1;
+                    //        }
+                    //        if (grid[row][col] != null)
+                    //            grid[row][col].Mark = 0;
+                    //    }
+                    //}
 
-                    bool submit = true;
-                    foreach (Hexa pat in pattern)
-                    {
-                        if (!submit)
-                            break;
-                        if (grid[pat.Row][pat.Col].Material == 1)
-                        {
-                            foreach (int[] dir in Dirs)
-                            {
-                                int newRow = pat.Row + dir[0];
-                                int newCol = pat.Col + dir[1];
-                                if (newRow < 0 || newRow >= grid.Length || newCol < 0 || newCol >= grid[newRow].Length)
-                                    continue;
-                                Hexa neighbor = grid[newRow][newCol];
+                    //bool submit = true;
+                    //foreach (Hexa pat in pattern)
+                    //{
+                    //    if (!submit)
+                    //        break;
+                    //    if (grid[pat.Row][pat.Col].Material == 1)
+                    //    {
+                    //        foreach (int[] dir in Dirs)
+                    //        {
+                    //            int newRow = pat.Row + dir[0];
+                    //            int newCol = pat.Col + dir[1];
+                    //            if (newRow < 0 || newRow >= grid.Length || newCol < 0 || newCol >= grid[newRow].Length)
+                    //                continue;
+                    //            Hexa neighbor = grid[newRow][newCol];
 
-                                if (pattern.Any(p => p.Row == newRow && p.Col == newCol))
-                                    continue;
+                    //            if (pattern.Any(p => p.Row == newRow && p.Col == newCol))
+                    //                continue;
 
-                                if (neighbor != null && neighbor.Material == 1)
-                                    submit = false;
+                    //            if (neighbor != null && neighbor.Material == 1)
+                    //                submit = false;
 
-                            }
-                        }
-                        else
-                            submit = false;
-                    }
+                    //        }
+                    //    }
+                    //    else
+                    //        submit = false;
+                    //}
 
-                    if (submit)
-                    {
-                        foreach (Hexa pat in pattern)
-                        {
-                            grid[pat.Row][pat.Col].Material = 0;
-                        }
-                        submitted++;
+                    //if (submit)
+                    //{
+                    //    foreach (Hexa pat in pattern)
+                    //    {
+                    //        grid[pat.Row][pat.Col].Material = 0;
+                    //    }
+                    //    submitted++;
 
-                    }
+                    //}
 
                     result.Add(instruction.ToString());
                 }
-
-
 
                 result.Add(Environment.NewLine);
                 driver++;

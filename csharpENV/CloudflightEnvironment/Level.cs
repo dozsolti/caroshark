@@ -38,8 +38,14 @@
             input = File.ReadAllLines(FolderPath + $"in_level-{LevelNumber}_1-small.txt");
             WriteOutput("1_small".ToString());
 
-            input = File.ReadAllLines(FolderPath + $"in_level-{LevelNumber}_2-large.txt");
-            WriteOutput("2_large".ToString());
+            input = File.ReadAllLines(FolderPath + $"in_level-{LevelNumber}_2-medium.txt");
+            WriteOutput("2_medium".ToString());
+
+            input = File.ReadAllLines(FolderPath + $"in_level-{LevelNumber}_3-large.txt");
+            WriteOutput("3_large".ToString());
+
+            input = File.ReadAllLines(FolderPath + $"in_level-{LevelNumber}_4-enormous.txt");
+            WriteOutput("4_enormous".ToString());
 
         }
     }
